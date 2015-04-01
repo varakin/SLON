@@ -7,7 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-class OAElementsFirstPage(unittest.TestCase):
+class Untitled(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -15,44 +15,46 @@ class OAElementsFirstPage(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_o_a_elements_first_page(self):
+    def test_untitled(self):
         driver = self.driver
         driver.get(self.base_url + "/")
         try: self.assertEqual("StarLine=", driver.find_element_by_id("logo").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual(u"Г‘ГЇГіГІГ­ГЁГЄГ®ГўГ»Г©\nГ®ГµГ°Г Г­Г­Г®-Г¬Г®Г­ГЁГІГ®Г°ГЁГ­ГЈГ®ГўГ»Г©\nГ±ГҐГ°ГўГЁГ±", driver.find_element_by_css_selector("h1").text)
+        try: self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='demo']/span[2]"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual(u"Г„ГҐГ¬Г®-ГўГµГ®Г¤", driver.find_element_by_xpath("//div[@id='demo']/span[2]").text)
+        try: self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='login']/span[2]"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual(u"Г‚ГµГ®Г¤", driver.find_element_by_xpath("//div[@id='login']/span[2]").text)
+        try: self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='register']/span[2]"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual(u"ГђГҐГЈГЁГ±ГІГ°Г Г¶ГЁГї", driver.find_element_by_xpath("//div[@id='register']/span[2]").text)
+        try: self.assertEqual(u"Спутниковый\nохранно-мониторинговый\nсервис", driver.find_element_by_css_selector("h1").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual(u"Г‡Г ГЈГ°ГіГ§ГЁГІГҐ StarLine Г­Г  Г‚Г Гё Г±Г¬Г Г°ГІГґГ®Г­:", driver.find_element_by_css_selector("div.table-cell.title > span").text)
+        try: self.assertEqual(u"Загрузите StarLine\nна Ваш смартфон:", driver.find_element_by_xpath("//div[@id='main-window-footer']/div[2]/div/span").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_css_selector("span.form-icon.app-store").text)
+        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "span.icon-social.apple"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_css_selector("span.form-icon.google-play").text)
+        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "span.icon-social.android"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_css_selector("span.form-icon.windows-phone").text)
+        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "span.icon-social.windows"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual(u"В© 2015 ГЌГЏГЋ \"Г‘ГІГ Г°Г‹Г Г©Г­\"", driver.find_element_by_css_selector("#footer-copyright > span").text)
+        try: self.assertTrue(self.is_element_present(By.XPATH, "//div[@id='start-wizard']/table/tbody/tr/td[2]"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual(u"ГЄГ ГІГ Г«Г®ГЈ ГіГ±ГІГ°Г®Г©Г±ГІГў StarLine", driver.find_element_by_link_text(u"ГЄГ ГІГ Г«Г®ГЈ ГіГ±ГІГ°Г®Г©Г±ГІГў StarLine").text)
+        try: self.assertEqual(u"© 2015 НПО \"СтарЛайн\"", driver.find_element_by_css_selector("#footer-copyright > span").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual(u"ГЄГ ГЄ ГЄГіГЇГЁГІГј ГЁ ГіГ±ГІГ Г­Г®ГўГЁГІГј", driver.find_element_by_link_text(u"ГЄГ ГЄ ГЄГіГЇГЁГІГј ГЁ ГіГ±ГІГ Г­Г®ГўГЁГІГј").text)
+        try: self.assertTrue(self.is_element_present(By.LINK_TEXT, u"каталог устройств StarLine"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_css_selector("a.social-icon.vk").text)
+        try: self.assertTrue(self.is_element_present(By.LINK_TEXT, u"как купить и установить"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_css_selector("a.social-icon.tw").text)
+        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "a.icon-social.vk"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_css_selector("a.social-icon.fb").text)
+        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "a.icon-social.tw"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_css_selector("a.social-icon.lj").text)
+        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "a.icon-social.fb"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_css_selector("a.social-icon.yt").text)
+        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "a.icon-social.lj"))
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_css_selector("a.social-icon.ig").text)
+        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "a.icon-social.yt"))
+        except AssertionError as e: self.verificationErrors.append(str(e))
+        try: self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "a.icon-social.ig"))
         except AssertionError as e: self.verificationErrors.append(str(e))
     
     def is_element_present(self, how, what):

@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
+from datetime import datetime
 
 class OACheckEnterFalseFalse(unittest.TestCase):
     def setUp(self):
@@ -18,9 +19,12 @@ class OACheckEnterFalseFalse(unittest.TestCase):
     def test_o_a_check_enter_false_false(self):
         driver = self.driver
         driver.get(self.base_url + "/")
-        driver.find_element_by_id("login").click()
+        driver.find_element_by_xpath("//div[@id='login']/span[2]").click()
         driver.find_element_by_name("LoginForm[login]").clear()
-        driver.find_element_by_name("LoginForm[login]").send_keys("varakin.123@mail.ru")
+        varakin_start = datetime (2015,1,1)
+        varakin_today = datetime.today()
+        varakin_superman = abs(varakin_start - varakin_today)
+        driver.find_element_by_name("LoginForm[login]").send_keys("varakin.%d@mail.ru" % int(varakin_superman.total_seconds() / 60))
         driver.find_element_by_name("LoginForm[pass]").clear()
         driver.find_element_by_name("LoginForm[pass]").send_keys("654321")
         driver.find_element_by_css_selector("button.form-button.enter").click()
@@ -28,9 +32,11 @@ class OACheckEnterFalseFalse(unittest.TestCase):
         except AssertionError as e: self.verificationErrors.append(str(e))
         driver.find_element_by_id("main-window-notification-area").click()
         driver.find_element_by_xpath("//form[@id='login-form']/div/span").click()
+        try: self.assertEqual("StarLine=", driver.find_element_by_id("logo").text)
+        except AssertionError as e: self.verificationErrors.append(str(e))
         try: self.assertEqual(u"Демо-вход", driver.find_element_by_xpath("//div[@id='demo']/span[2]").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual(u"Вход", driver.find_element_by_xpath("//div[@id='login']/span[2]").text)
+        try: self.assertEqual(u"Вход", driver.find_element_by_id("login").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
         try: self.assertEqual(u"Регистрация", driver.find_element_by_xpath("//div[@id='register']/span[2]").text)
         except AssertionError as e: self.verificationErrors.append(str(e))

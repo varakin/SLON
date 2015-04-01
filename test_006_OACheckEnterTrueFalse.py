@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
+from datetime import datetime
 
 class OACheckEnterTrueFalse(unittest.TestCase):
     def setUp(self):
@@ -20,7 +21,10 @@ class OACheckEnterTrueFalse(unittest.TestCase):
         driver.get(self.base_url + "/")
         driver.find_element_by_xpath("//div[@id='login']/span[2]").click()
         driver.find_element_by_name("LoginForm[login]").clear()
-        driver.find_element_by_name("LoginForm[login]").send_keys("varakin.1@mail.ru")
+        varakin_start = datetime (2015,1,1)
+        varakin_today = datetime.today()
+        varakin_superman = abs(varakin_start - varakin_today)
+        driver.find_element_by_name("LoginForm[login]").send_keys("varakin.1%d@mail.ru" % int(varakin_superman.total_seconds() / 60))
         driver.find_element_by_name("LoginForm[pass]").clear()
         driver.find_element_by_name("LoginForm[pass]").send_keys("654321")
         driver.find_element_by_css_selector("button.form-button.enter").click()

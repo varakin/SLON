@@ -7,7 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-class OACheckElementEnter(unittest.TestCase):
+class Qwerty(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -15,25 +15,24 @@ class OACheckElementEnter(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_o_a_check_element_enter(self):
+    def test_qwerty(self):
         driver = self.driver
         driver.get(self.base_url + "/")
         driver.find_element_by_xpath("//div[@id='login']/span[2]").click()
         try: self.assertEqual(u"Вход", driver.find_element_by_css_selector("#login-form > div.content > h4").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_name("LoginForm[login]").get_attribute("value"))
+        try: self.assertEqual("", driver.find_element_by_name("LoginForm[login]").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertEqual("", driver.find_element_by_name("LoginForm[pass]").get_attribute("value"))
+        try: self.assertEqual("", driver.find_element_by_name("LoginForm[pass]").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
         try: self.assertEqual(u"запомнить меня", driver.find_element_by_css_selector("#login-form > div.content > div.checkbox > label").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
         try: self.assertEqual(u"Войти", driver.find_element_by_css_selector("button.form-button.enter").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
-        try: self.assertRegexpMatches(driver.find_element_by_link_text(u"Забыли пароль?").text, r"^exact:Забыли пароль[\s\S]$")
-        except AssertionError as e: self.verificationErrors.append(str(e))
+#        try: self.assertRegexpMatches(driver.find_element_by_link_text(u"Забыли пароль?").text, r"^exact:Забыли пароль[\s\S]$")
+#        except AssertionError as e: self.verificationErrors.append(str(e))
         try: self.assertEqual(u"пользовательским соглашением", driver.find_element_by_css_selector("em").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
-        driver.find_element_by_xpath("//form[@id='login-form']/div/span").click()
     
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
