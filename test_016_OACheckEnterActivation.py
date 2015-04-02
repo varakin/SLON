@@ -19,6 +19,7 @@ class OACheckEnterActivation(unittest.TestCase):
         driver = self.driver
         driver.get(self.base_url + "/")
         driver.find_element_by_id("login").click()
+        time.sleep(1)
         try: self.assertEqual(u"Для первого входа в систему и активации Вашего устройства используйте Логин и Пароль напечатанные на Карте", driver.find_element_by_xpath("//div[@id='check-card-notice']/div/div/span[2]").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
         try: self.assertEqual("", driver.find_element_by_css_selector("img").text)
@@ -26,7 +27,9 @@ class OACheckEnterActivation(unittest.TestCase):
         try: self.assertEqual(u"Карта активации находится в коробке с устройством StarLine. Поставляется с сигнализациями и GSM-модулями M21, M31, M32", driver.find_element_by_css_selector("div.form-input-advice.text-blue").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
         driver.find_element_by_css_selector("input[type=\"checkbox\"]").click()
+        time.sleep(1)
         driver.find_element_by_xpath("//form[@id='login-form']/div/span").click()
+        time.sleep(1)
         try: self.assertEqual(u"Демо-вход", driver.find_element_by_id("demo").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
         try: self.assertEqual(u"Вход", driver.find_element_by_xpath("//div[@id='login']/span[2]").text)
